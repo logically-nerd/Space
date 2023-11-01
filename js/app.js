@@ -46,7 +46,7 @@ const $overlay = document.querySelector('[data-sidebar-overlay]')
 
 addEventOnElements($sidebarToggler, 'click', function () {
     $sidebar.classList.toggle('active')
-    $overlay.classList.toggle('active')
+    // $overlay.classList.toggle('active')
 })
 
 // greetings
