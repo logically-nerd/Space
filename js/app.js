@@ -74,8 +74,7 @@ const createNotebook = function (event) {
         this.parentElement.remove();
         //render nav item
         client.notebook.create(notebookData)
-    }
-    if (event.key === 'Escape') {
+    }else if (event.key === 'Escape') {
         this.parentElement.remove();
     }
 }
@@ -86,16 +85,15 @@ const showNotebookField = function () {
     const navItem = document.createElement('div')
     navItem.classList.add('nav-item')
     navItem.innerHTML = `
-        <span class="text text-label-large" data-notebook-field></span>
-        <div class="state-layer"></div>
+    <span class="text text-label-large" data-notebook-field></span>
+    <div class="state-layer"></div>
     `
     sidebarList.appendChild(navItem)
-    //activate new created notebook and remove active from rest
-    const navItemField = navItem.querySelector('[data-notebook-field]')
-    activeNotebook.call(navItem)
-
     //input field
+    const navItemField = navItem.querySelector('[data-notebook-field]')
     makeElemEditable(navItemField)
+    //activate new created notebook and remove active from rest
+    activeNotebook.call(navItem)
     navItemField.addEventListener('keydown', createNotebook)
 }
 addNotebook.addEventListener('click', showNotebookField)
@@ -125,7 +123,7 @@ addEventOnElements(noteCreatebtn, 'click', function () {
 
 const renderExistedNote = function () {
     const activeNotebookId = document.querySelector('[data-notebook].active')?.dataset.notebook
-    if(activeNotebookId){
+    if (activeNotebookId) {
         const noteList = db.get.note(activeNotebookId)
         // console.log(noteList)
         client.note.read(noteList)

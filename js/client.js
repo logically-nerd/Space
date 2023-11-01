@@ -6,7 +6,7 @@ import { Card } from "./components/Card.js";
 import { NavItem } from "./components/NavItem.js";
 
 //import util
-import { activeNotebook } from "./util.js";
+import { activeNotebook, findNotebookIndex } from "./util.js";
 
 const sidebarList = document.querySelector('[data-sidebar-list]')
 const notePanelTitle = document.querySelector('[data-note-panel-title]')
@@ -27,8 +27,10 @@ export const client = {
             activeNotebook.call(navItem);
             notePanelTitle.textContent = notebookData.name
             notePanel.innerHTML = emptyNotesTemplate
+            noteCreateBtns.forEach(btn => btn.classList.remove('hide'))
         },
         read(notebookList) {
+            if (!notebookList.length) noteCreateBtns.forEach(btn => btn.classList.add('hide'))
             notebookList.forEach((notebookData, index) => {
                 const navItem = NavItem(notebookData.id, notebookData.name);
                 if (index === 0) {
@@ -55,6 +57,9 @@ export const client = {
                 notePanel.innerHTML = ''
             }
             deleteNotebook.remove()
+
+            const notebookList = JSON.parse(localStorage.getItem('spaceDB')).notebooks.length
+            if (!notebookList) noteCreateBtns.forEach(btn => btn.classList.add('hide'))
         }
     },
     note: {

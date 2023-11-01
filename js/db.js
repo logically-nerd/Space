@@ -42,6 +42,7 @@ export const db = {
                 name,
                 notes: []
             }
+            console.log(notebookData)
             spaceDB.notebooks.push(notebookData)
             writeDB();
             return notebookData
